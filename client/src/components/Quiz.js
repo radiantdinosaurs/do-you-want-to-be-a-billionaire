@@ -18,10 +18,14 @@ function Quiz(props) {
         )
     }
     return (
-        <div key={ props.questionId }>
+        <div className="tile is-child card" key={ props.questionId }>
             <Question question={ props.question } />
-            <div className="control">
-                { props.answerOptions.map(getAnswerOptions) }
+            <div className="card-content">
+                <div className="content">
+                    <div className="columns">
+                        { props.answerOptions.map(getAnswerOptions) }
+                    </div>
+                </div>
             </div>
         </div>
     )

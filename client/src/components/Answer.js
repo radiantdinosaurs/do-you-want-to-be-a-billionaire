@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 function Answer(props) {
     const answerContent = props.answerContent
     return (
-        <label className="radio">
-            <input
-                type="radio"
+        <div className="column">
+            <a
+                className="button is-primary is-fullwidth"
                 name={ answerContent }
                 id={ props.answerContent }
-                value={ props.answerType }
-                onChange={ props.onAnswerClick }
-            />
-            { answerContent }
-        </label>
+                onClick={ props.onAnswerClick }
+            >
+                { answerContent }
+            </a>
+        </div>
     )
 }
 

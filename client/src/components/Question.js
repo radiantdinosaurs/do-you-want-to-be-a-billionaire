@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 
 function Question(props) {
     return (
-        <h2 className="question">{ props.question }</h2>
+        <header className="card-header">
+            <p className="card-header-title">
+                { props.question }
+            </p>
+        </header>
     )
 }
 
