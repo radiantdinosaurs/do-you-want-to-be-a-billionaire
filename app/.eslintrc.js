@@ -12,6 +12,10 @@ module.exports = {
         "space-before-function-paren": ["error", "never"],
         "camelcase": 0
     },
+    "globals": {
+        "fetch": false,
+        "localStorage": false
+    },
     "plugins": [
         "react"
     ],

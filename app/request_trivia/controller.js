@@ -9,17 +9,57 @@ const TOKEN_EMPTY = 4
 
 async function handleGettingTrivia(request, response, next) {
     try {
+        let answers
         if (request.body && request.body.token) {
             const token = request.body.token
             const easyQuestions = await handleMakingRequestForEasyQuestions(token)
             const mediumQuestions = await handleMakingRequestForMediumQuestions(token)
             const hardQuestions = await handleMakingRequestForHardQuestions(token)
-            const questions = easyQuestions.concat(mediumQuestions, hardQuestions)
+            let questions = await easyQuestions.concat(mediumQuestions, hardQuestions)
+            questions = await questions.map((question) => {
+                answers = []
+                answers.push({ 'correct': parse(question.correct_answer) })
+                question.incorrect_answers.forEach((answer) => {
+                    answers.push({ 'incorrect': parse(answer) })
+                    shuffle(answers)
+                })
+                parse(question.question)
+                return {
+                    'question': question.question,
+                    'answers': answers
+                }
+            })
             response.status(200).send({ questions })
         } else next(error.badBodyFormat())
-    } catch(error) {
+    } catch (error) {
         next(error)
     }
+}
+
+function shuffle(array) {
+    let currentIndex = array.length
+    let temporaryValue
+    let randomIndex
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+    }
+    return array
+}
+
+function parse(sentence) {
+    return sentence.replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/(&quot;)|(&ldquo;)/g, '"')
+        .replace(/(&#039;)|(&rsquo;)|(&#039;)/g, "'")
+        .replace(/&shy;/g, '-')
+        .replace(/&amp;/g, '&')
+        .replace(/&oacute;/g, 'ó')
+        .replace(/&hellip;/g, '...')
 }
 
 function needsTokenReset(response) {

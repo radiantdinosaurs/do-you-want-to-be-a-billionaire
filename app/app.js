@@ -9,7 +9,7 @@ const error = require('./error/index')
 const app = express()
 
 // config ===============================
-app.set('port', (8000))
+app.set('port', (8080))
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({
     limit: '50mb',

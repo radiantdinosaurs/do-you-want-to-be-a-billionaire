@@ -9,6 +9,6 @@ router.get('/', (request, response) => {
     response.status(200).send({ success: true })
 })
 
-router.post('/trivia', requestTrivia.getTrivia)
+router.post('/api/v1/trivia', requestTrivia.getTrivia)
 
 module.exports = router

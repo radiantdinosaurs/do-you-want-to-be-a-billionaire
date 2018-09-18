@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './App.css'
 import 'bulma/css/bulma.css'
-import fetch from 'node-fetch'
 import Quiz from './components/Quiz.js'
 import Result from './components/Result.js'
 import Score from './components/Score'
@@ -25,20 +24,9 @@ class App extends Component {
         this.onAnswerClick = this.onAnswerClick.bind(this)
     }
     componentDidMount() {
-        this.fetchEasyQuestions().then((data) => {
-            let questions = data.results.map((question) => {
-                let answers = []
-                answers.push({ 'correct': this.parse(question.correct_answer) })
-                question.incorrect_answers.forEach((answer) => answers.push({ 'incorrect': this.parse(answer) }))
-                this.shuffle(answers)
-
-                let parsedQuestion = this.parse(question.question)
-
-                return {
-                    'question': parsedQuestion,
-                    'answers': answers
-                }
-            })
+        this.handleSession()
+        this.fetchTriviaQuestions().then((response) => {
+            const questions = response.questions
             this.setState({
                 questions: questions,
                 question: questions[0].question,
@@ -46,50 +34,36 @@ class App extends Component {
                 currentLevel: this.props.levels[0],
                 safeLevel: this.props.levels[0]
             })
+        }).catch((error) => {
+            console.log('Error: ', error)
         })
     }
-    fetchEasyQuestions() {
-        return fetch('https://opentdb.com/api.php?amount=15&category=9&difficulty=easy&type=multiple')
-            .then((response) => {
-                return response.json()
-            })
+    handleSession() {
+        fetch(`https://opentdb.com/api_token.php?command=request`).then((response) => {
+            return response.json()
+        }).then((response) => {
+            if (response.token) localStorage.setItem('token', response.token)
+            else throw new Error('Token was not fetched successfully.')
+        }).catch((error) => {
+            console.log('Error: ', error)
+        })
     }
-    fetchMediumQuestions() {
-        return fetch('https://opentdb.com/api.php?amount=4&category=9&difficulty=medium&type=multiple')
-            .then((response) => {
-                return response.json()
-            })
-    }
-    fetchHardQuestions() {
-        return fetch('https://opentdb.com/api.php?amount=2&category=9&difficulty=hard&type=multiple')
-            .then((response) => {
-                return response.json()
-            })
-    }
-    shuffle(array) {
-        let currentIndex = array.length
-        let temporaryValue
-        let randomIndex
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex)
-            currentIndex -= 1
-            temporaryValue = array[currentIndex]
-            array[currentIndex] = array[randomIndex]
-            array[randomIndex] = temporaryValue
+    fetchTriviaQuestions() {
+        const token = localStorage.getItem('token')
+        const options = {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({ 'token': token })
         }
-        return array
+        return fetch('/api/v1/trivia', options).then((response) => {
+            return response.json()
+        })
     }
-    parse(sentence) {
-        return sentence.replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/(&quot;)|(&ldquo;)/g, '"')
-            .replace(/(&#039;)|(&rsquo;)|(&#039;)/g, "'")
-            .replace(/&shy;/g, '-')
-            .replace(/&amp;/g, '&')
-            .replace(/&oacute;/g, 'ó')
-            .replace(/&hellip;/g, '...')
-    }
+
     onAnswerClick(event) {
         const answer = String(event.currentTarget.name)
         let c = false
