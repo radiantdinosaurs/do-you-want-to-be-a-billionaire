@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './App.css'
 import 'bulma/css/bulma.css'
-import Quiz from './components/Quiz.js'
-import Result from './components/Result.js'
+import Quiz from './components/Quiz'
+import Result from './components/Result'
 import Score from './components/Score'
+import Start from './components/Start'
+import Timer from './components/Timer'
 
 class App extends Component {
     constructor() {
         super()
         this.state = {
+            showQuiz: false,
             questions: [],
             counter: 0,
             questionId: 1,
@@ -22,34 +25,47 @@ class App extends Component {
             safeLevel: {}
         }
         this.onAnswerClick = this.onAnswerClick.bind(this)
+        this.onStartClick = this.onStartClick.bind(this)
+        this.countDown = this.countDown.bind(this)
     }
     componentDidMount() {
-        this.handleSession()
-        this.fetchTriviaQuestions().then((response) => {
+        const token = sessionStorage.getItem('token')
+        if (!token) this.getSession()
+    }
+    getSession() {
+        fetch(`https://opentdb.com/api_token.php?command=request`).then((response) => {
+            return response.json()
+        }).then((response) => {
+            if (response.token) sessionStorage.setItem('token', response.token)
+            else console.log(new Error('Error: Token was not fetched successfully.'))
+        }).catch((error) => {
+            console.log('Error: ', error)
+        })
+    }
+    onStartClick() {
+        const startButton = document.getElementById('start-button')
+        startButton.classList.add('is-loading')
+        this.startGame()
+    }
+    startGame() {
+        this.fetchTrivia().then((response) => {
             const questions = response.questions
             this.setState({
                 questions: questions,
                 question: questions[0].question,
                 answerOptions: questions[0].answers,
                 currentLevel: this.props.levels[0],
-                safeLevel: this.props.levels[0]
+                safeLevel: this.props.levels[0],
+                showQuiz: true,
+                seconds: this.props.seconds
             })
+            this.startTimer()
         }).catch((error) => {
             console.log('Error: ', error)
         })
     }
-    handleSession() {
-        fetch(`https://opentdb.com/api_token.php?command=request`).then((response) => {
-            return response.json()
-        }).then((response) => {
-            if (response.token) localStorage.setItem('token', response.token)
-            else throw new Error('Token was not fetched successfully.')
-        }).catch((error) => {
-            console.log('Error: ', error)
-        })
-    }
-    fetchTriviaQuestions() {
-        const token = localStorage.getItem('token')
+    fetchTrivia() {
+        const token = sessionStorage.getItem('token')
         const options = {
             method: 'POST',
             mode: 'cors',
@@ -63,24 +79,36 @@ class App extends Component {
             return response.json()
         })
     }
-
-    onAnswerClick(event) {
-        const answer = String(event.currentTarget.name)
-        let c = false
-        this.state.answerOptions.forEach((element) => {
-            if (element.correct === answer) {
-                c = true
-            }
+    startTimer() {
+        setInterval(this.countDown, 1000)
+    }
+    countDown() {
+        let seconds = this.state.seconds - 1
+        this.setState({
+            time: seconds,
+            seconds: seconds
         })
-        if (c) {
-            if (this.state.questionId < this.state.questions.length) setTimeout(() => this.setNextQuestion(), 300)
-            else {
+        if (seconds === 0) {
+            let result = 'Time up! You lost.'
+            this.setState({ result: result, showQuiz: false })
+        }
+    }
+    onAnswerClick(event) {
+        const selectedAnswer = String(event.currentTarget.name)
+        let answerIsCorrect = false
+        this.state.answerOptions.forEach((answer) => {
+            if (answer.correct === selectedAnswer) answerIsCorrect = true
+        })
+        if (answerIsCorrect) {
+            if (this.state.questionId < this.state.questions.length) {
+                setTimeout(() => this.setNextQuestion(), 300)
+            } else {
                 let result = 'You won!'
-                this.setResults(result)
+                this.setState({ showQuiz: false, result: result })
             }
         } else {
             let result = 'Incorrect answer. You lost.'
-            this.setResults(result)
+            this.setState({ result: result, showQuiz: false })
         }
     }
     setNextQuestion() {
@@ -93,25 +121,37 @@ class App extends Component {
             question: this.state.questions[counter].question,
             answerOptions: this.state.questions[counter].answers,
             correct: correct,
-            currentLevel: this.props.levels[counter]
+            currentLevel: this.props.levels[counter],
+            seconds: 30
         })
-    }
-    setResults(result) {
-        this.setState({ result: result })
     }
     render() {
         return (
             <section className="section">
                 <div className="container">
-                    <div className="tile is-ancestor is-vertical">
-                        <div className="tile is-parent is-4">
-                            <Score
-                                levels={ this.props.levels }
-                                currentLevel={ this.state.currentLevel }
-                            />
-                        </div>
-                        <div className="tile is-parent">
-                            {!this.state.result &&
+                    {!this.state.showQuiz && !this.state.result &&
+                        <Start
+                            onStartClick={ this.onStartClick }
+                        />
+                    }
+                    {this.state.showQuiz &&
+                        <div className="tile is-ancestor is-vertical">
+                            <div className="tile is-12">
+                                <div className="tile is-parent">
+                                    <Score
+                                        levels={ this.props.levels }
+                                        currentLevel={ this.state.currentLevel }
+                                    />
+                                </div>
+                                <div className="tile is-parent">
+                                    <Timer
+                                        seconds={ this.state.seconds }
+                                    />
+                                </div>
+                                <div className="tile is-parent">
+                                </div>
+                            </div>
+                            <div className="tile is-parent is-12">
                                 <Quiz
                                     answerOptions={ this.state.answerOptions }
                                     questionId={ this.state.questionId }
@@ -119,14 +159,14 @@ class App extends Component {
                                     questionTotal={ this.state.questions.length }
                                     onAnswerClick={ this.onAnswerClick }
                                 />
-                            }
-                            {this.state.result &&
-                                <Result
-                                    result={ this.state.result }
-                                />
-                            }
+                            </div>
                         </div>
-                    </div>
+                    }
+                    {!this.state.showQuiz && this.state.result &&
+                        <Result
+                            result={ this.state.result }
+                        />
+                    }
                 </div>
             </section>
         )
@@ -150,11 +190,13 @@ App.defaultProps = {
         { number: 12, value: '$250', safe: true },
         { number: 13, value: '$500', safe: true },
         { number: 14, value: '$1,000,000,000', safe: true }
-    ]
+    ],
+    seconds: 30
 }
 
 App.propTypes = {
-    levels: PropTypes.array.isRequired
+    levels: PropTypes.array.isRequired,
+    seconds: PropTypes.number.isRequired
 }
 
 export default App

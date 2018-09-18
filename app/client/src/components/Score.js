@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Score.css'
-import Level from './Level.js'
+import Level from './Level'
 
 function Score(props) {
     function getLevels(level) {
@@ -23,10 +22,12 @@ function Score(props) {
     }
     const levels = props.levels
     return (
-        <div className="tile is-child has-background-white-ter">
+        <div className="tile">
             <div className="card">
                 <div className="card-content">
-                    { levels.map(getLevels) }
+                    <table className="table">
+                        { levels.map(getLevels) }
+                    </table>
                 </div>
             </div>
         </div>

@@ -8,27 +8,18 @@ function Level(props) {
     const currentLevel = props.currentLevel
     const maxLevel = props.maxLevel
     return (
-        <div
-            className={
-                'columns ' +
-                (currentLevel ? 'has-background-warning' : '') +
-                (maxLevel ? 'has-background-grey-dark' : '') }
-        >
-            <div className="column is-1">
-                <p
-                    className={ 'has-text-weight-bold ' +
-                    (maxLevel || levelSafe ? 'has-text-warning' : '')}>
-                    { levelNumber }
-                </p>
-            </div>
-            <div className="column">
-                <p
-                    className={ 'has-text-weight-bold ' +
-                    (maxLevel || levelSafe ? 'has-text-warning' : '')}>
-                    { levelValue }
-                </p>
-            </div>
-        </div>
+        <tr className={'has-text-weight-bold ' +
+            (currentLevel ? 'has-background-warning' : '') +
+            (maxLevel ? 'has-background-grey-dark' : '') }>
+            <td className={'is-6 ' +
+                (maxLevel || levelSafe ? 'has-text-primary' : '')}>
+                { levelNumber }
+            </td>
+            <td className={'is-6 ' +
+                (maxLevel || levelSafe ? 'has-text-primary' : '')}>
+                { levelValue }
+            </td>
+        </tr>
     )
 }
 

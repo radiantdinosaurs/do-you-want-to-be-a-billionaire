@@ -14,7 +14,7 @@ module.exports = {
     },
     "globals": {
         "fetch": false,
-        "localStorage": false
+        "sessionStorage": false,
     },
     "plugins": [
         "react"
