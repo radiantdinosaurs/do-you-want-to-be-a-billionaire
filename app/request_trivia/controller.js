@@ -1,172 +1,59 @@
 'use strict';
 
 const axios = require('axios');
-const error = require('../error/index');
+const getError = require('../error/index');
 const logger = require('../logger/index');
+const constants = require('../constants/index');
 
-const SUCCESS = 0;
-const TOKEN_EMPTY = 4;
+const EASY_QUESTIONS = token =>
+    `https://opentdb.com/api.php?amount=9&category=9&difficulty=easy&type=multiple&token=${token}`;
+const MEDIUM_QUESTIONS = token =>
+    `https://opentdb.com/api.php?amount=4&category=9&difficulty=medium&type=multiple&token=${token}`;
+const HARD_QUESTIONS = token =>
+    `https://opentdb.com/api.php?amount=2&category=9&difficulty=hard&type=multiple&token=${token}`;
 
-async function handleGettingTrivia(request, response, next) {
-    try {
-        let answers;
+function checkResponseCode(response) {
+    const responseCode = response.data.response_code;
 
-        if (request.body && request.body.token) {
-            const token = request.body.token;
-            const easyQuestions = await handleMakingRequestForEasyQuestions(
-                token
-            );
-            const mediumQuestions = await handleMakingRequestForMediumQuestions(
-                token
-            );
-            const hardQuestions = await handleMakingRequestForHardQuestions(
-                token
-            );
-            let questions = await easyQuestions.concat(
-                mediumQuestions,
-                hardQuestions
-            );
-            questions = await questions.map(question => {
-                answers = [];
-                answers.push({
-                    name: parse(question.correct_answer),
-                    correct: true
-                });
-                question.incorrect_answers.forEach(answer => {
-                    answers.push({ name: parse(answer), correct: false });
-                    shuffle(answers);
-                });
-                parse(question.question);
-                return {
-                    question: question.question,
-                    answers: answers
-                };
+    if (responseCode === constants.TOKEN_EMPTY) {
+        logger.log('info', 'Token is empty');
+        throw getError.emptyToken();
+    } else if (responseCode === constants.TOKEN_NOT_FOUND) {
+        logger.log('info', 'Token was not found');
+        throw getError.tokenNotFound();
+    } else if (responseCode !== constants.SUCCESS)
+        throw getError.unexpectedResponse();
+}
+
+function handleGettingTrivia(request, response, next) {
+    const token = request.body.token;
+    let questions = [];
+
+    axios
+        .get(EASY_QUESTIONS(token))
+        .then(result => {
+            checkResponseCode(result);
+            questions = result.data.results;
+            return axios.get(MEDIUM_QUESTIONS(token));
+        })
+        .then(result => {
+            checkResponseCode(result);
+            questions = questions.concat(result.data.results);
+            return axios.get(HARD_QUESTIONS(token));
+        })
+        .then(result => {
+            checkResponseCode(result);
+            questions = questions.concat(result.data.results);
+            response.questions = questions;
+            next();
+        })
+        .catch(error => {
+            logger.log('error', {
+                message: 'Caught an error inside handleTriviaRequest',
+                error: error
             });
-            response.status(200).send({ questions });
-        } else next(error.badBodyFormat());
-    } catch (error) {
-        next(error);
-    }
-}
-
-function shuffle(array) {
-    let currentIndex = array.length;
-    let temporaryValue;
-    let randomIndex;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
-}
-
-function parse(sentence) {
-    console.log(sentence);
-    sentence
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/(&quot;)|(&ldquo;)/g, '"')
-        .replace(/(&#039;)|(&rsquo;)|(&#039;)/g, "'")
-        .replace(/&shy;/g, '-')
-        .replace(/&amp;/g, '&')
-        .replace(/&oacute;/g, 'ó')
-        .replace(/&hellip;/g, '...');
-    console.log(sentence);
-    return sentence;
-}
-
-function needsTokenReset(response) {
-    if (response.response_code) {
-        if (response.response_code === SUCCESS) {
-            return false;
-        } else if (response.response_code === TOKEN_EMPTY) {
-            return true;
-        }
-    }
-}
-
-function resetToken(token) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(
-                `https://opentdb.com/api_token.php?command=reset&token=${token}`
-            )
-            .then(response => resolve(response))
-            .catch(error => reject(error));
-    });
-}
-
-async function handleMakingRequestForEasyQuestions(token) {
-    let response = await getEasyQuestions(token);
-    if (needsTokenReset(response)) {
-        await resetToken(token);
-        response = await getEasyQuestions(token);
-    }
-    const easyQuestions = response.results;
-    return easyQuestions;
-}
-
-async function handleMakingRequestForMediumQuestions(token) {
-    let response = await getMediumQuestions(token);
-    if (needsTokenReset(response)) {
-        await resetToken(token);
-        response = await getMediumQuestions(token);
-    }
-    const mediumQuestions = response.results;
-    return mediumQuestions;
-}
-
-async function handleMakingRequestForHardQuestions(token) {
-    let response = await getHardQuestions(token);
-    if (needsTokenReset(response)) {
-        await resetToken(token);
-        response = await getHardQuestions(token);
-    }
-    const hardQuestions = response.results;
-    return hardQuestions;
-}
-
-function getEasyQuestions(token) {
-    const get = `https://opentdb.com/api.php?amount=9&category=9&difficulty=easy&type=multiple&token=${token}`;
-    console.log(get);
-    return new Promise((resolve, reject) => {
-        axios
-            .get(get)
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => reject(error));
-    });
-}
-
-function getMediumQuestions(token) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(
-                `https://opentdb.com/api.php?amount=4&category=9&difficulty=medium&type=multiple&token=${token}`
-            )
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => reject(error));
-    });
-}
-
-function getHardQuestions(token) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(
-                `https://opentdb.com/api.php?amount=2&category=9&difficulty=hard&type=multiple&token=${token}`
-            )
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => reject(error));
-    });
+            next(error);
+        });
 }
 
 module.exports = {
