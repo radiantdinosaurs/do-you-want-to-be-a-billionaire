@@ -1,37 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Answer from './Answer/Answer.js';
-import Fade from '../../Transitions/Fade';
+import Answers from './Answers/Answers';
+import Question from './Question/Question.js';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import AnswerOption from './Answers/AnswerOption/AnswerOption';
 
-function Quiz(props) {
-    return (
-        <div id='quiz-card'>
-            <p
-                className='question'
-                dangerouslySetInnerHTML={{ __html: props.question }}
-            />
+class Quiz extends Component {
+    render() {
+        const { currentQuestion, counter } = this.props;
 
-            {props.answerOptions.map((answer, keys) => {
-                const answerContent = Object.values(answer);
-                const answerType = Object.keys(answer);
-                return (
-                    <Answer
-                        key={`answer_option_${keys}`}
-                        answerContent={answerContent[0]}
-                        answerType={answerType[0]}
-                        onAnswerClick={props.onAnswerClick}
-                    />
-                );
-            })}
-        </div>
-    );
+        return (
+            <div id="quiz-card" style={{ overflow: 'hidden' }}>
+                <Question question={currentQuestion.question} />
+                <TransitionGroup>
+                    {currentQuestion.answers.map(answer => {
+                        return (
+                            <CSSTransition
+                                key={answer.name}
+                                timeout={1000}
+                                classNames="fade"
+                            >
+                                <AnswerOption
+                                    key={`answer_option_${answer.name}`}
+                                    answer={answer}
+                                    handleAnswerClick={
+                                        this.props.handleAnswerClick
+                                    }
+                                />
+                            </CSSTransition>
+                        );
+                    })}
+                </TransitionGroup>
+            </div>
+        );
+    }
 }
 
 Quiz.propTypes = {
-    answerOptions: PropTypes.array.isRequired,
-    question: PropTypes.string.isRequired,
-    questionId: PropTypes.number.isRequired,
-    onAnswerClick: PropTypes.func.isRequired
+    counter: PropTypes.number,
+    handleAnswerClick: PropTypes.func,
+    currentQuestion: PropTypes.object
 };
 
 export default Quiz;

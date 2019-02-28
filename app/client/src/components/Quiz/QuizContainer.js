@@ -1,61 +1,79 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Timer from './Timer/Timer';
-import LifeLine from './LifeLine/LifeLine';
-import Score from './Score/Score';
-import Quiz from './Quiz/Quiz';
-import Fade from '../Transitions/Fade';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Timer from "./Timer/Timer";
+import LifeLine from "./LifeLine/LifeLine";
+import Score from "./Score/Score";
+import Quiz from "./Quiz/Quiz";
 
 class QuizContainer extends Component {
+    state = {
+        currentQuestion: {}
+    };
+
+    componentWillMount() {
+        this.setQuestion();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.counter !== prevProps.counter) this.setQuestion();
+    }
+
+    setQuestion = () => {
+        const { counter, questions } = this.props;
+        this.setState({
+            currentQuestion: questions[counter]
+        });
+    };
+
+    handleAnswerClick = event => {
+        const { questions, counter } = this.props;
+        const value = event.currentTarget.name;
+
+        if (true === true) {
+            counter < questions.length - 1
+                ? this.props.setNextQuestion()
+                : this.props.setResult({
+                      message: "You won!",
+                      lost: false
+                  });
+        } else this.props.setResult({ message: "You lost", lost: true });
+    };
+
     render() {
-        const props = this.props;
+        const { counter, seconds, openModal } = this.props;
+        const { currentQuestion } = this.state;
+
         return (
-            <Fade in={props.showQuiz}>
-                <div className='absolute-container'>
-                    <Score
-                        load={props.showQuiz}
-                        levels={props.levels}
-                        currentLevel={props.currentLevel}
-                    />
+            <div className="absolute-container" id="quiz-container">
+                <Score counter={counter} />
 
-                    <div id='quiz-column'>
-                        <Timer seconds={props.seconds} />
-                        <Quiz
-                            answerOptions={props.answerOptions}
-                            questionId={props.questionId}
-                            question={props.question}
-                            questionTotal={props.questionTotal}
-                            onAnswerClick={props.onAnswerClick}
-                        />
-                    </div>
-
-                    <LifeLine
-                        onLifeLineClick={props.onLifeLineClick}
-                        askTheAudience={props.askTheAudience}
-                        phoneARobot={props.phoneARobot}
-                        split={props.split}
+                <div id="quiz-column">
+                    <Timer seconds={seconds} />
+                    <Quiz
+                        counter={counter}
+                        handleAnswerClick={this.handleAnswerClick}
+                        currentQuestion={currentQuestion}
                     />
                 </div>
-            </Fade>
+
+                <LifeLine
+                    // Using answer options for all lifelines
+                    answerOptions={currentQuestion.answers}
+                    // Used to show lifelines in modal
+                    openModal={openModal}
+                />
+            </div>
         );
     }
 }
 
 QuizContainer.propTypes = {
-    showQuiz: PropTypes.bool.isRequired,
-    //
-    levels: PropTypes.array.isRequired,
-    currentLevel: PropTypes.object.isRequired,
-    onLifeLineClick: PropTypes.func.isRequired,
-    seconds: PropTypes.number.isRequired,
-    answerOptions: PropTypes.array.isRequired,
-    questionId: PropTypes.number.isRequired,
-    question: PropTypes.string.isRequired,
-    questionTotal: PropTypes.number.isRequired,
-    onAnswerClick: PropTypes.func.isRequired,
-    askTheAudience: PropTypes.object,
-    phoneARobot: PropTypes.string,
-    split: PropTypes.bool
+    counter: PropTypes.number,
+    openModal: PropTypes.func,
+    questions: PropTypes.array,
+    seconds: PropTypes.number,
+    setNextQuestion: PropTypes.func,
+    setResult: PropTypes.func
 };
 
 export default QuizContainer;

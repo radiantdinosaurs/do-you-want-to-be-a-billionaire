@@ -1,4 +1,4 @@
-export function animateStartButton() {
+export function animateStartButtonOnClick() {
     const startButton = document.getElementById('start-button');
     const start = document.getElementById('start-title');
     startButton.style.textShadow =

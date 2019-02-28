@@ -14,19 +14,31 @@ const transitionStyles = {
     entered: { opacity: 1 }
 };
 
-const Fade = props => (
-    <Transition in={props.in} timeout={duration} unmountOnExit>
-        {state => (
-            <div
-                style={{
-                    ...defaultStyle,
-                    ...transitionStyles[state]
-                }}
-            >
-                {props.children}
-            </div>
-        )}
-    </Transition>
-);
+const Fade = props => {
+    return (
+        <Transition
+            in={props.in}
+            mountOnEnter={true}
+            unmountOnExit={true}
+            timeout={duration}
+        >
+            {state => (
+                <div
+                    style={{
+                        ...defaultStyle,
+                        ...transitionStyles[state]
+                    }}
+                >
+                    {props.children}
+                </div>
+            )}
+        </Transition>
+    );
+};
+
+Fade.propTypes = {
+    in: PropTypes.bool,
+    children: PropTypes.node
+};
 
 export default Fade;

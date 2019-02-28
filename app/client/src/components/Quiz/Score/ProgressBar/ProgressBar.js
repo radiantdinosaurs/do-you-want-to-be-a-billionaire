@@ -1,28 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Line } from 'rc-progress';
 
 function ProgressBar(props) {
-    const currentLevel = props.currentLevel;
-    const maxLevel = props.maxLevel;
+    const { currentLevel } = props;
 
     return (
-        <div className='position-relative' style={{ width: '100%' }}>
-            <progress
-                className='progress'
-                value={currentLevel}
-                max={maxLevel}
+        <div className="progress-container">
+            <Line
+                //  There's 15 questions total, so multiply the current level
+                //  number by it's weight of 100%
+                percent={currentLevel * 6.66666666667}
+                strokeWidth="3"
+                //  Yellow color
+                strokeColor="#f9df72"
+                trailColor="#FFFFFF"
             />
         </div>
     );
 }
 
 ProgressBar.propTypes = {
-    currentValue: PropTypes.string.isRequired,
-    levelNumber: PropTypes.number.isRequired,
-    levelValue: PropTypes.string.isRequired,
-    levelSafe: PropTypes.bool.isRequired,
-    currentLevel: PropTypes.bool.isRequired,
-    maxLevel: PropTypes.bool.isRequired
+    currentLevel: PropTypes.number
 };
 
 export default ProgressBar;
