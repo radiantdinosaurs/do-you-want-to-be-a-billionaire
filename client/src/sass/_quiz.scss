@@ -93,7 +93,7 @@ $progress-value-background-color: $yellow;
         right: 0;
         top: 0;
         bottom: 0;
-        content: '';
+        content: "";
         background: $red;
         display: block;
         width: 100%;
@@ -169,7 +169,7 @@ $progress-value-background-color: $yellow;
 
     &:before,
     span:before {
-        content: '';
+        content: "";
         position: absolute;
         left: 50%;
         top: 50%;
@@ -326,6 +326,7 @@ $progress-value-background-color: $yellow;
 //small screen sizes
 @media screen and (max-width: 1000px) {
     .progress-container {
+        width: 100%;
         display: block !important;
     }
 }

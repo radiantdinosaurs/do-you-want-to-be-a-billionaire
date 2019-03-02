@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const controller = require('./controller');
+const controller = require("./controller");
 
 module.exports = {
     resourceNotFound: controller.resourceNotFound,
@@ -8,5 +8,6 @@ module.exports = {
     badBodyFormat: controller.badBodyFormat,
     unexpectedResponse: controller.unexpectedResponse,
     emptyToken: controller.emptyToken,
-    tokenNotFound: controller.tokenNotFound
+    tokenNotFound: controller.tokenNotFound,
+    internalError: controller.internalError
 };

@@ -1,23 +1,23 @@
 /******************************
  * Dependencies
  *****************************/
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 /******************************
  * Components
  *****************************/
 
-import Start from './components/Splash/Splash';
-import Quiz from './components/Quiz/QuizContainer';
-import Background from './components/Background/Background';
-import Fade from './components/Transitions/Fade';
-import Modal from './components/Modal/Modal';
+import Start from "./components/Splash/Splash";
+import Quiz from "./components/Quiz/QuizContainer";
+import Background from "./components/Background/Background";
+import Fade from "./components/Transitions/Fade";
+import Modal from "./components/Modal/Modal";
 
 /******************************
  * Helper functions
  *****************************/
 
-import * as request from './helpers/requests';
+import * as request from "./helpers/requests";
 
 /******************************
  * App
@@ -38,32 +38,38 @@ class App extends Component {
             interval: () => {},
             //  State used for modal
             modalIsOpen: false,
-            modalMessage: ''
+            modalMessage: ""
         };
+        this.getQuestions = this.getQuestions.bind(this);
     }
 
     componentDidMount() {
         //  If there's no existing session, get a session
-        if (!sessionStorage.getItem('token')) request.getSession();
+        if (!sessionStorage.getItem("token")) request.getSession();
     }
 
-    getQuestions = () => {
-        request
-            .fetchTrivia()
-            .then(response => {
-                const questions = response.questions;
-                this.setState({
-                    counter: 0,
-                    questions: questions,
-                    showSplash: false,
-                    seconds: 30,
-                    interval: setInterval(this.handleCountingDown, 1000)
-                });
-            })
-            .catch(error => {
-                console.log('Error: ', error);
+    async getQuestions() {
+        let questions = await request.handleFetchingTrivia();
+        if (questions.error && questions.error === "Token is empty.") {
+            const token = await request.resetToken();
+            questions = await request.handleFetchingTrivia();
+            this.setState({
+                counter: 0,
+                questions: questions,
+                showSplash: false,
+                seconds: 30,
+                interval: setInterval(this.handleCountingDown, 1000)
             });
-    };
+        } else {
+            this.setState({
+                counter: 0,
+                questions: questions,
+                showSplash: false,
+                seconds: 30,
+                interval: setInterval(this.handleCountingDown, 1000)
+            });
+        }
+    }
 
     handleCountingDown = () => {
         const seconds = this.state.seconds - 1;

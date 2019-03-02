@@ -28,8 +28,7 @@ class QuizContainer extends Component {
     handleAnswerClick = event => {
         const { questions, counter } = this.props;
         const value = event.currentTarget.name;
-
-        if (true === true) {
+        if (value === "true") {
             counter < questions.length - 1
                 ? this.props.setNextQuestion()
                 : this.props.setResult({
