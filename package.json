@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "server": "nodemon app/app.js",
+        "heroku-postbuild": "cd client && yarn && yarn run build",
+        "start": "node app/app.js",
         "client": "cd client && npm start",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
