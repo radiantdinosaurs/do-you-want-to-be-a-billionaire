@@ -6,59 +6,52 @@ import Score from "./Score/Score";
 import Quiz from "./Quiz/Quiz";
 
 class QuizContainer extends Component {
-    state = {
-        currentQuestion: {}
-    };
-
-    componentWillMount() {
-        this.setQuestion();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.counter !== prevProps.counter) this.setQuestion();
-    }
-
-    setQuestion = () => {
-        const { counter, questions } = this.props;
-        this.setState({
-            currentQuestion: questions[counter]
-        });
-    };
-
+    /**
+     * Handles calling the right functions when an answer is clicked, depending
+     * on if the answer was correct or incorrect
+     */
     handleAnswerClick = event => {
         const { questions, counter } = this.props;
-        const value = event.currentTarget.name;
-        if (value === "true") {
-            counter < questions.length - 1
-                ? this.props.setNextQuestion()
-                : this.props.setResult({
-                      message: "You won!",
-                      lost: false
-                  });
-        } else this.props.setResult({ message: "You lost", lost: true });
+        const answer = event.currentTarget.name;
+
+        //  If the answer was correct, we check if there's questions leftover
+        if (answer === "true") {
+            //  If there's no questions left, the user won the game
+            if (counter === questions.length) {
+                this.props.endGame({
+                    message: "You won!",
+                    lost: false
+                });
+            }
+            //  Otherwise, we go to the next question
+            else this.props.setNextQuestion();
+        }
+        //  If the answer was incorrect, the user lost the game
+        else this.props.endGame({ message: "You lost", lost: true });
     };
 
     render() {
-        const { counter, seconds, openModal } = this.props;
-        const { currentQuestion } = this.state;
+        const { counter, openModal, questions, seconds } = this.props;
 
         return (
             <div className="absolute-container" id="quiz-container">
+                {/* Shows all levels/money, as well as highlighting the one the user is currently one */}
                 <Score counter={counter} />
 
                 <div id="quiz-column">
+                    {/* Shows the countdown */}
                     <Timer seconds={seconds} />
+
+                    {/* Actual questions/answers */}
                     <Quiz
-                        counter={counter}
                         handleAnswerClick={this.handleAnswerClick}
-                        currentQuestion={currentQuestion}
+                        currentQuestion={questions[counter]}
                     />
                 </div>
 
+                {/* Lifelines (phone a robot, ask the audience, etc.) */}
                 <LifeLine
-                    // Using answer options for all lifelines
-                    answerOptions={currentQuestion.answers}
-                    // Used to show lifelines in modal
+                    answerOptions={questions[counter].answers}
                     openModal={openModal}
                 />
             </div>
@@ -72,7 +65,7 @@ QuizContainer.propTypes = {
     questions: PropTypes.array,
     seconds: PropTypes.number,
     setNextQuestion: PropTypes.func,
-    setResult: PropTypes.func
+    endGame: PropTypes.func
 };
 
 export default QuizContainer;

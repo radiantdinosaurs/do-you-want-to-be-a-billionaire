@@ -5,12 +5,12 @@ function PhoneARobot(props) {
     const { correctAnswer } = props;
 
     return (
-        <React.Fragment>
+        <div>
             <div className="speech-bubble">
                 <p>{correctAnswer}</p>
             </div>
             <i className="fas fa-lg fa-robot" id="cool-robot" />
-        </React.Fragment>
+        </div>
     );
 }
 

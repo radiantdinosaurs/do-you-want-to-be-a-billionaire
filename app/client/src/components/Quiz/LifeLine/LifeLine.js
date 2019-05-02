@@ -1,70 +1,56 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import PhoneARobot from './PhoneARobot/PhoneARobot';
-import AskTheAudience from './AskTheAudience/AskTheAudience';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import PhoneARobot from "./PhoneARobot/PhoneARobot";
+import AskTheAudience from "./AskTheAudience/AskTheAudience";
+import * as helper from "../../../helpers/lifelines";
 
 class LifeLine extends Component {
     state = {
+        //  Any of the state values below will be false if the user
+        //  uses the life line
         askTheAudience: false,
         phoneARobot: false,
         split: false
     };
 
+    /**
+     * Handles when the user clicks on a life life, sending it to the right
+     * function
+     */
     onLifeLineClick = event => {
         const lifeLine = event.currentTarget.name;
         switch (lifeLine) {
-            case 'robot':
+            //  Phone a robot
+            case "robot":
                 this.onClickPhoneARobot();
                 break;
-            case 'ask':
+            //  Ask the audience
+            case "ask":
                 this.onClickAskTheAudience();
                 break;
-            case 'split':
+            //  Remove two answers
+            case "split":
                 this.split();
         }
     };
 
     onClickPhoneARobot = () => {
         const { answerOptions } = this.props;
-        const quotes = [
-            'Hmmmm...I think the right answer is ',
-            'I know! The answer is ',
-            'You should definitely choose this answer: '
-        ];
-        let correctAnswer;
-
-        answerOptions.forEach(answer => {
-            if (answer.correct) {
-                let quote = quotes[Math.floor(Math.random() * quotes.length)];
-                correctAnswer = `${quote}${answer.name}`;
-            }
-        });
-
-        this.setState({ phoneARobot: true });
+        //  Send off to the helper to get the correct answer
+        const correctAnswer = helper.handlePhoningARobot(answerOptions);
+        //  Mark that the life line has been used
+        this.setUsedLifeLine("phoneARobot");
+        //  Open the modal with the robot with answer displayed
         this.props.openModal(<PhoneARobot correctAnswer={correctAnswer} />);
     };
 
     onClickAskTheAudience = () => {
         const { answerOptions } = this.props;
-        let askTheAudience = [];
-
-        answerOptions.forEach(answer => {
-            if (answer.correct) {
-                const percent = Math.floor(Math.random() * (89 - 50) + 50);
-                askTheAudience.push({
-                    answer: answer.name,
-                    audience: percent
-                });
-            } else {
-                const percent = Math.floor(Math.random() * (45 - 10) + 10);
-                askTheAudience.push({
-                    answer: answer.name,
-                    audience: percent
-                });
-            }
-        });
-
-        this.setState({ askTheAudience: true });
+        //  Send off to the helper to get the correct answer
+        const askTheAudience = helper.handleAskingTheAudience(answerOptions);
+        //  Mark that the life line has been used
+        this.setUsedLifeLine("askTheAudience");
+        //  Open the modal with the "audience" answers displayed
         this.props.openModal(
             <AskTheAudience askTheAudience={askTheAudience} />
         );
@@ -72,33 +58,16 @@ class LifeLine extends Component {
 
     onClickSplit = () => {
         const { answerOptions } = this.props;
-        let answersRemoved = 0;
-        this.shuffle(answerOptions);
-
-        answerOptions.forEach(answer => {
-            if (answersRemoved < 2) {
-                if (!answer.correct) {
-                    document.getElementById(answer.name).style.opacity = '0';
-                    answersRemoved++;
-                }
-            }
-        });
-        this.setState({ split: true });
+        //  Send off to the helper to shuffle/hide the answers
+        helper.handleSplittingAnswers(answerOptions);
+        //  Mark that the life line has been used
+        this.setUsedLifeLine("split");
     };
 
-    shuffle = array => {
-        let currentIndex = array.length;
-        let temporaryValue, randomIndex;
-
-        while (0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
+    setUsedLifeLine = name => {
+        this.setState({
+            [name]: true
+        });
     };
 
     render() {
@@ -107,14 +76,14 @@ class LifeLine extends Component {
             <div id="lifeline-column">
                 <button
                     disabled={askTheAudience}
-                    name={'ask'}
+                    name={"ask"}
                     id="ask"
                     onClick={this.onClickAskTheAudience}
                 >
                     <i className="fas fa-lg fa-users" />
                 </button>
                 <button
-                    name={'split'}
+                    name={"split"}
                     disabled={split}
                     onClick={this.onClickSplit}
                 >
@@ -122,7 +91,7 @@ class LifeLine extends Component {
                 </button>
                 <button
                     disabled={phoneARobot}
-                    name={'robot'}
+                    name={"robot"}
                     onClick={this.onClickPhoneARobot}
                 >
                     <i className="fas fa-lg fa-robot" />

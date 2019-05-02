@@ -7,7 +7,7 @@ import React, { Component } from "react";
  * Components
  *****************************/
 
-import Start from "./components/Splash/Splash";
+import Splash from "./components/Splash/Splash";
 import Quiz from "./components/Quiz/QuizContainer";
 import Background from "./components/Background/Background";
 import Fade from "./components/Transitions/Fade";
@@ -60,7 +60,7 @@ class App extends Component {
 
         //  When the timer runs out, set the result to tell the user time's up
         if (seconds === 0) {
-            this.setResult({ message: "Time's up!", lost: true });
+            this.handleEndingGame({ message: "Time's up!", lost: true });
         }
     };
 
@@ -125,7 +125,12 @@ class App extends Component {
         //  Set the state for game start
         this.setGameStart(questions);
         //  Start the countdown
-        setInterval(this.handleCountingDown, 1000);
+        this.timer = setInterval(this.handleCountingDown, 1000);
+    };
+
+    handleEndingGame = result => {
+        clearInterval(this.timer);
+        this.setResult(result);
     };
 
     setGameStart = questions => {
@@ -207,7 +212,7 @@ class App extends Component {
 
                 {/* Splash page */}
                 <Fade in={showSplash}>
-                    <Start
+                    <Splash
                         startGame={this.handleStartingGame}
                         result={result}
                     />
@@ -221,7 +226,7 @@ class App extends Component {
                         questions={questions}
                         seconds={seconds}
                         setNextQuestion={this.setNextQuestion}
-                        setResult={this.setResult}
+                        endGame={this.handleEndingGame}
                     />
                 </Fade>
 

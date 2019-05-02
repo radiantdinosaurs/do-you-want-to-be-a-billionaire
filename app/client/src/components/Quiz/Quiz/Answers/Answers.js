@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AnswerOption from './AnswerOption/AnswerOption.js';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AnswerOption from "./AnswerOption/AnswerOption.js";
+import { TransitionGroup } from "react-transition-group";
 
 class Quiz extends Component {
     render() {
@@ -22,5 +22,10 @@ class Quiz extends Component {
         );
     }
 }
+
+Answers.propTypes = {
+    currentQuestion: PropTypes.object,
+    handleAnswerClick: PropTypes.func
+};
 
 export default Quiz;

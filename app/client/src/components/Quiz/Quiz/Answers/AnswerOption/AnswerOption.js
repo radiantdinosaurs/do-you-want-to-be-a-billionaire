@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 function AnswerOption(props) {
     const answerContent = props.answer.name;
+
     return (
         <button
             className="skew-button"
@@ -16,9 +17,8 @@ function AnswerOption(props) {
 }
 
 AnswerOption.propTypes = {
-    // answerType: PropTypes.string.isRequired,
-    // answerContent: PropTypes.string.isRequired,
-    // handleAnswerClick: PropTypes.func.isRequired
+    answer: PropTypes.object,
+    handleAnswerClick: PropTypes.func
 };
 
 export default AnswerOption;

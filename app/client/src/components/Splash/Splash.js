@@ -5,23 +5,34 @@ import * as documentManipulation from "../../helpers/documentManipulation";
 
 class Splash extends Component {
     state = {
+        //  Loading starts off true so we can handle curving the title before
+        //  the user can see it
         loading: true
     };
 
     componentDidMount() {
-        // Curve the title into a circle
+        //  TODO: Right now, I'm using `setTimeout` before curving the title,
+        //  but this is a bug to solve
         setTimeout(
             () => new CircleType(document.getElementById("start-title")),
             300
         );
-        // After a second of loading, show the start screen
-        setTimeout(() => this.setState({ loading: false }), 500);
+        //  After a second of loading, show the start screen
+        setTimeout(() => this.setLoading(false), 500);
     }
 
-    // Handle when the user clicks on the start button
-    onStartClick = event => {
+    /**
+     * Handles actions needed when the user clicks to start a game
+     */
+    onStartClick = () => {
+        //  Start spinning the start button
         documentManipulation.animateStartButtonOnClick();
+        //  Begin work on starting the same
         this.props.startGame();
+    };
+
+    setLoading = loading => {
+        this.setState({ loading: loading });
     };
 
     render() {
@@ -30,7 +41,7 @@ class Splash extends Component {
         let glowingColor = "";
         let textColor = "";
 
-        // Handle changing the text color if the game has ended
+        //  Handle changing the text color if the game has ended
         if (result) {
             glowingColor = result && result.lost ? "you-lost" : "you-won";
             textColor = result && result.lost ? "lost" : "won";
@@ -40,8 +51,10 @@ class Splash extends Component {
             <div
                 className="absolute-container"
                 style={{
+                    //  Until finished loading, we're hiding this container and
+                    //  its content
                     opacity: loading ? "0" : 1,
-                    transition: "opacity 2s"
+                    transition: "opacity 1s ease-in"
                 }}
             >
                 <div id="start-container">
@@ -74,8 +87,7 @@ class Splash extends Component {
 
 Splash.propTypes = {
     result: PropTypes.object,
-    showSplash: PropTypes.bool.isRequired,
-    getQuestions: PropTypes.func.isRequired
+    startGame: PropTypes.func
 };
 
 export default Splash;
