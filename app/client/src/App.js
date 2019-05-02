@@ -219,7 +219,11 @@ class App extends Component {
                 </Fade>
 
                 {/* Quiz */}
-                <Fade in={!showSplash} mountOnEnter unmountOnExit>
+                <Fade
+                    in={!showSplash && questions.length}
+                    mountOnEnter
+                    unmountOnExit
+                >
                     <Quiz
                         counter={counter}
                         openModal={this.openModal}

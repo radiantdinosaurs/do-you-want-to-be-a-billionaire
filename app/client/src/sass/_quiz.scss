@@ -254,7 +254,7 @@ $progress-value-background-color: $yellow;
     box-shadow: 0 3px 0 0 white, 0 -3px 0 0 white, -3px 0 0 0 white,
         3px 0 0 0 white, 0 0 0 3px white;
     text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4), 0 0 20px $blue;
-    animation: neonGlow 1s ease-in-out infinite alternate;
+    animation: neonGlow 0.75s ease-in-out infinite alternate;
 }
 
 @keyframes neonGlow {
