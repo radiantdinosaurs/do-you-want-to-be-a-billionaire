@@ -5,18 +5,26 @@ import Transition from "react-transition-group/Transition";
 const duration = 300;
 
 const defaultStyle = {
-    transition: `opacity ${duration}ms ease-in-out`,
-    opacity: 0
+    position: "absolute",
+    opacity: "0",
+    bottom: "-10rem",
+    left: "1rem",
+    transition: `all ${duration}ms ease-in-out`
 };
 
 const transitionStyles = {
-    entered: { opacity: 1 }
+    entered: {
+        bottom: "1rem",
+        opacity: "1"
+    }
 };
 
-const Fade = props => {
+const Snackbar = props => {
+    const { show, message } = props.snackbar;
+
     return (
         <Transition
-            in={props.in}
+            in={show}
             mountOnEnter={true}
             unmountOnExit={true}
             timeout={duration}
@@ -27,17 +35,18 @@ const Fade = props => {
                         ...defaultStyle,
                         ...transitionStyles[state]
                     }}
+                    className="snackbar"
                 >
-                    {props.children}
+                    <p>{message}</p>
                 </div>
             )}
         </Transition>
     );
 };
 
-Fade.propTypes = {
+Snackbar.propTypes = {
     in: PropTypes.bool,
     children: PropTypes.node
 };
 
-export default Fade;
+export default Snackbar;

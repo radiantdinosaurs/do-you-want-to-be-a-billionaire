@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 function Modal(props) {
     return (
@@ -8,7 +8,7 @@ function Modal(props) {
                 <button onClick={props.closeModal} id="close-button">
                     <i className="fas fa-window-close" id="close_icon" />
                 </button>
-                {props.modalMessage}
+                {props.message}
             </div>
         </div>
     );
@@ -17,7 +17,7 @@ function Modal(props) {
 Modal.propTypes = {
     open: PropTypes.bool,
     closeModal: PropTypes.func,
-    modalMessage: PropTypes.node
+    message: PropTypes.node
 };
 
 export default Modal;

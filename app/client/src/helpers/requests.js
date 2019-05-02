@@ -1,3 +1,7 @@
+export const responseCodes = {
+    GOOD: 0
+};
+
 const endpoints = {
     GET_TOKEN: "https://opentdb.com/api_token.php?command=request",
     GET_TRIVIA: "/api/v1/trivia",
@@ -53,7 +57,7 @@ export function handleFetchingTrivia() {
     const token = sessionStorage.getItem("token");
 
     return getQuestions(token).then(response => {
-        if (response.error && response.error === "Token is empty.") {
+        if (response.error) {
             return response;
         } else return response.questions;
     });

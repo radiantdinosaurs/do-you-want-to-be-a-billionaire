@@ -1,0 +1,15 @@
+.snackbar {
+    max-width: 10rem;
+    border: 0.25rem solid $white;
+    padding: 0 1rem;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4), 0 0 20px $red, 0 0 40px $red,
+        0 0 50px $red, 0 0 100px $red;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4),
+        inset 2px 2px 1px rgba(0, 0, 0, 0.4), 0 0 20px $red, inset 0 0 20px $red;
+}
+
+.snackbar p {
+    font-size: 1rem;
+}

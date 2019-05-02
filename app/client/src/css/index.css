@@ -128,320 +128,320 @@
       height: 3px;
       width: 3px; }
   #sparkles i:nth-child(2) {
-    top: calc(70 * 1%);
-    left: calc(70 * 1%);
+    top: calc(87 * 1%);
+    left: calc(63 * 1%);
     animation-delay: 1s; }
   #sparkles i:nth-child(3) {
-    top: calc(64 * 1%);
-    left: calc(59 * 1%);
+    top: calc(72 * 1%);
+    left: calc(99 * 1%);
     animation-delay: 1.5s; }
   #sparkles i:nth-child(4) {
-    top: calc(75 * 1%);
-    left: calc(49 * 1%);
+    top: calc(98 * 1%);
+    left: calc(96 * 1%);
     animation-delay: 2s; }
   #sparkles i:nth-child(5) {
-    top: calc(40 * 1%);
-    left: calc(58 * 1%);
+    top: calc(27 * 1%);
+    left: calc(78 * 1%);
     animation-delay: 2.5s; }
   #sparkles i:nth-child(6) {
-    top: calc(5 * 1%);
-    left: calc(14 * 1%);
+    top: calc(22 * 1%);
+    left: calc(61 * 1%);
     animation-delay: 3s; }
   #sparkles i:nth-child(7) {
-    top: calc(9 * 1%);
-    left: calc(2 * 1%);
-    animation-delay: 3.5s; }
-  #sparkles i:nth-child(8) {
-    top: calc(42 * 1%);
-    left: calc(9 * 1%);
-    animation-delay: 4s; }
-  #sparkles i:nth-child(9) {
-    top: calc(91 * 1%);
-    left: calc(60 * 1%);
-    animation-delay: 4.5s; }
-  #sparkles i:nth-child(10) {
-    top: calc(33 * 1%);
-    left: calc(37 * 1%);
-    animation-delay: 0s; }
-  #sparkles i:nth-child(11) {
-    top: calc(57 * 1%);
-    left: calc(85 * 1%);
-    animation-delay: 0.5s; }
-  #sparkles i:nth-child(12) {
-    top: calc(59 * 1%);
-    left: calc(3 * 1%);
-    animation-delay: 1s; }
-  #sparkles i:nth-child(13) {
-    top: calc(88 * 1%);
-    left: calc(23 * 1%);
-    animation-delay: 1.5s; }
-  #sparkles i:nth-child(14) {
-    top: calc(72 * 1%);
-    left: calc(77 * 1%);
-    animation-delay: 2s; }
-  #sparkles i:nth-child(15) {
-    top: calc(9 * 1%);
-    left: calc(83 * 1%);
-    animation-delay: 2.5s; }
-  #sparkles i:nth-child(16) {
-    top: calc(6 * 1%);
-    left: calc(23 * 1%);
-    animation-delay: 3s; }
-  #sparkles i:nth-child(17) {
-    top: calc(48 * 1%);
-    left: calc(40 * 1%);
-    animation-delay: 3.5s; }
-  #sparkles i:nth-child(18) {
-    top: calc(60 * 1%);
-    left: calc(62 * 1%);
-    animation-delay: 4s; }
-  #sparkles i:nth-child(19) {
-    top: calc(72 * 1%);
-    left: calc(25 * 1%);
-    animation-delay: 4.5s; }
-  #sparkles i:nth-child(20) {
-    top: calc(74 * 1%);
-    left: calc(56 * 1%);
-    animation-delay: 0s; }
-  #sparkles i:nth-child(21) {
-    top: calc(29 * 1%);
-    left: calc(33 * 1%);
-    animation-delay: 0.5s; }
-  #sparkles i:nth-child(22) {
-    top: calc(36 * 1%);
-    left: calc(71 * 1%);
-    animation-delay: 1s; }
-  #sparkles i:nth-child(23) {
-    top: calc(3 * 1%);
-    left: calc(63 * 1%);
-    animation-delay: 1.5s; }
-  #sparkles i:nth-child(24) {
-    top: calc(45 * 1%);
-    left: calc(32 * 1%);
-    animation-delay: 2s; }
-  #sparkles i:nth-child(25) {
-    top: calc(23 * 1%);
-    left: calc(91 * 1%);
-    animation-delay: 2.5s; }
-  #sparkles i:nth-child(26) {
-    top: calc(1 * 1%);
-    left: calc(94 * 1%);
-    animation-delay: 3s; }
-  #sparkles i:nth-child(27) {
-    top: calc(3 * 1%);
-    left: calc(12 * 1%);
-    animation-delay: 3.5s; }
-  #sparkles i:nth-child(28) {
-    top: calc(79 * 1%);
-    left: calc(30 * 1%);
-    animation-delay: 4s; }
-  #sparkles i:nth-child(29) {
-    top: calc(41 * 1%);
-    left: calc(67 * 1%);
-    animation-delay: 4.5s; }
-  #sparkles i:nth-child(30) {
-    top: calc(17 * 1%);
-    left: calc(53 * 1%);
-    animation-delay: 0s; }
-  #sparkles i:nth-child(31) {
-    top: calc(87 * 1%);
-    left: calc(56 * 1%);
-    animation-delay: 0.5s; }
-  #sparkles i:nth-child(32) {
-    top: calc(17 * 1%);
-    left: calc(4 * 1%);
-    animation-delay: 1s; }
-  #sparkles i:nth-child(33) {
-    top: calc(57 * 1%);
-    left: calc(94 * 1%);
-    animation-delay: 1.5s; }
-  #sparkles i:nth-child(34) {
-    top: calc(74 * 1%);
-    left: calc(19 * 1%);
-    animation-delay: 2s; }
-  #sparkles i:nth-child(35) {
-    top: calc(81 * 1%);
-    left: calc(40 * 1%);
-    animation-delay: 2.5s; }
-  #sparkles i:nth-child(36) {
-    top: calc(25 * 1%);
-    left: calc(98 * 1%);
-    animation-delay: 3s; }
-  #sparkles i:nth-child(37) {
-    top: calc(47 * 1%);
+    top: calc(7 * 1%);
     left: calc(6 * 1%);
     animation-delay: 3.5s; }
-  #sparkles i:nth-child(38) {
-    top: calc(95 * 1%);
-    left: calc(98 * 1%);
+  #sparkles i:nth-child(8) {
+    top: calc(22 * 1%);
+    left: calc(60 * 1%);
     animation-delay: 4s; }
-  #sparkles i:nth-child(39) {
-    top: calc(73 * 1%);
-    left: calc(79 * 1%);
+  #sparkles i:nth-child(9) {
+    top: calc(15 * 1%);
+    left: calc(71 * 1%);
     animation-delay: 4.5s; }
-  #sparkles i:nth-child(40) {
-    top: calc(26 * 1%);
-    left: calc(51 * 1%);
+  #sparkles i:nth-child(10) {
+    top: calc(23 * 1%);
+    left: calc(18 * 1%);
     animation-delay: 0s; }
-  #sparkles i:nth-child(41) {
-    top: calc(66 * 1%);
-    left: calc(76 * 1%);
+  #sparkles i:nth-child(11) {
+    top: calc(75 * 1%);
+    left: calc(14 * 1%);
     animation-delay: 0.5s; }
-  #sparkles i:nth-child(42) {
-    top: calc(9 * 1%);
-    left: calc(73 * 1%);
+  #sparkles i:nth-child(12) {
+    top: calc(47 * 1%);
+    left: calc(40 * 1%);
     animation-delay: 1s; }
-  #sparkles i:nth-child(43) {
-    top: calc(32 * 1%);
-    left: calc(65 * 1%);
+  #sparkles i:nth-child(13) {
+    top: calc(15 * 1%);
+    left: calc(54 * 1%);
     animation-delay: 1.5s; }
-  #sparkles i:nth-child(44) {
-    top: calc(34 * 1%);
-    left: calc(16 * 1%);
+  #sparkles i:nth-child(14) {
+    top: calc(70 * 1%);
+    left: calc(32 * 1%);
     animation-delay: 2s; }
-  #sparkles i:nth-child(45) {
-    top: calc(61 * 1%);
+  #sparkles i:nth-child(15) {
+    top: calc(84 * 1%);
     left: calc(59 * 1%);
     animation-delay: 2.5s; }
-  #sparkles i:nth-child(46) {
+  #sparkles i:nth-child(16) {
+    top: calc(87 * 1%);
+    left: calc(32 * 1%);
+    animation-delay: 3s; }
+  #sparkles i:nth-child(17) {
+    top: calc(78 * 1%);
+    left: calc(15 * 1%);
+    animation-delay: 3.5s; }
+  #sparkles i:nth-child(18) {
+    top: calc(18 * 1%);
+    left: calc(84 * 1%);
+    animation-delay: 4s; }
+  #sparkles i:nth-child(19) {
+    top: calc(94 * 1%);
+    left: calc(91 * 1%);
+    animation-delay: 4.5s; }
+  #sparkles i:nth-child(20) {
+    top: calc(42 * 1%);
+    left: calc(31 * 1%);
+    animation-delay: 0s; }
+  #sparkles i:nth-child(21) {
+    top: calc(6 * 1%);
+    left: calc(21 * 1%);
+    animation-delay: 0.5s; }
+  #sparkles i:nth-child(22) {
+    top: calc(9 * 1%);
+    left: calc(65 * 1%);
+    animation-delay: 1s; }
+  #sparkles i:nth-child(23) {
+    top: calc(97 * 1%);
+    left: calc(17 * 1%);
+    animation-delay: 1.5s; }
+  #sparkles i:nth-child(24) {
     top: calc(5 * 1%);
-    left: calc(77 * 1%);
+    left: calc(37 * 1%);
+    animation-delay: 2s; }
+  #sparkles i:nth-child(25) {
+    top: calc(60 * 1%);
+    left: calc(7 * 1%);
+    animation-delay: 2.5s; }
+  #sparkles i:nth-child(26) {
+    top: calc(18 * 1%);
+    left: calc(68 * 1%);
+    animation-delay: 3s; }
+  #sparkles i:nth-child(27) {
+    top: calc(87 * 1%);
+    left: calc(34 * 1%);
+    animation-delay: 3.5s; }
+  #sparkles i:nth-child(28) {
+    top: calc(44 * 1%);
+    left: calc(48 * 1%);
+    animation-delay: 4s; }
+  #sparkles i:nth-child(29) {
+    top: calc(12 * 1%);
+    left: calc(36 * 1%);
+    animation-delay: 4.5s; }
+  #sparkles i:nth-child(30) {
+    top: calc(64 * 1%);
+    left: calc(95 * 1%);
+    animation-delay: 0s; }
+  #sparkles i:nth-child(31) {
+    top: calc(77 * 1%);
+    left: calc(90 * 1%);
+    animation-delay: 0.5s; }
+  #sparkles i:nth-child(32) {
+    top: calc(53 * 1%);
+    left: calc(48 * 1%);
+    animation-delay: 1s; }
+  #sparkles i:nth-child(33) {
+    top: calc(23 * 1%);
+    left: calc(62 * 1%);
+    animation-delay: 1.5s; }
+  #sparkles i:nth-child(34) {
+    top: calc(96 * 1%);
+    left: calc(60 * 1%);
+    animation-delay: 2s; }
+  #sparkles i:nth-child(35) {
+    top: calc(61 * 1%);
+    left: calc(28 * 1%);
+    animation-delay: 2.5s; }
+  #sparkles i:nth-child(36) {
+    top: calc(91 * 1%);
+    left: calc(65 * 1%);
+    animation-delay: 3s; }
+  #sparkles i:nth-child(37) {
+    top: calc(29 * 1%);
+    left: calc(91 * 1%);
+    animation-delay: 3.5s; }
+  #sparkles i:nth-child(38) {
+    top: calc(62 * 1%);
+    left: calc(37 * 1%);
+    animation-delay: 4s; }
+  #sparkles i:nth-child(39) {
+    top: calc(80 * 1%);
+    left: calc(17 * 1%);
+    animation-delay: 4.5s; }
+  #sparkles i:nth-child(40) {
+    top: calc(63 * 1%);
+    left: calc(45 * 1%);
+    animation-delay: 0s; }
+  #sparkles i:nth-child(41) {
+    top: calc(27 * 1%);
+    left: calc(57 * 1%);
+    animation-delay: 0.5s; }
+  #sparkles i:nth-child(42) {
+    top: calc(41 * 1%);
+    left: calc(9 * 1%);
+    animation-delay: 1s; }
+  #sparkles i:nth-child(43) {
+    top: calc(10 * 1%);
+    left: calc(71 * 1%);
+    animation-delay: 1.5s; }
+  #sparkles i:nth-child(44) {
+    top: calc(31 * 1%);
+    left: calc(45 * 1%);
+    animation-delay: 2s; }
+  #sparkles i:nth-child(45) {
+    top: calc(1 * 1%);
+    left: calc(24 * 1%);
+    animation-delay: 2.5s; }
+  #sparkles i:nth-child(46) {
+    top: calc(6 * 1%);
+    left: calc(50 * 1%);
     animation-delay: 3s; }
   #sparkles i:nth-child(47) {
-    top: calc(36 * 1%);
-    left: calc(76 * 1%);
+    top: calc(18 * 1%);
+    left: calc(40 * 1%);
     animation-delay: 3.5s; }
   #sparkles i:nth-child(48) {
-    top: calc(48 * 1%);
-    left: calc(26 * 1%);
+    top: calc(15 * 1%);
+    left: calc(13 * 1%);
     animation-delay: 4s; }
   #sparkles i:nth-child(49) {
-    top: calc(36 * 1%);
-    left: calc(34 * 1%);
+    top: calc(42 * 1%);
+    left: calc(77 * 1%);
     animation-delay: 4.5s; }
   #sparkles i:nth-child(50) {
-    top: calc(23 * 1%);
-    left: calc(9 * 1%);
+    top: calc(16 * 1%);
+    left: calc(99 * 1%);
     animation-delay: 0s; }
   #sparkles i:nth-child(51) {
-    top: calc(51 * 1%);
-    left: calc(8 * 1%);
+    top: calc(56 * 1%);
+    left: calc(82 * 1%);
     animation-delay: 0.5s; }
   #sparkles i:nth-child(52) {
-    top: calc(74 * 1%);
-    left: calc(79 * 1%);
+    top: calc(41 * 1%);
+    left: calc(94 * 1%);
     animation-delay: 1s; }
   #sparkles i:nth-child(53) {
-    top: calc(50 * 1%);
-    left: calc(4 * 1%);
+    top: calc(28 * 1%);
+    left: calc(27 * 1%);
     animation-delay: 1.5s; }
   #sparkles i:nth-child(54) {
-    top: calc(25 * 1%);
-    left: calc(43 * 1%);
+    top: calc(8 * 1%);
+    left: calc(66 * 1%);
     animation-delay: 2s; }
   #sparkles i:nth-child(55) {
-    top: calc(35 * 1%);
-    left: calc(19 * 1%);
+    top: calc(12 * 1%);
+    left: calc(53 * 1%);
     animation-delay: 2.5s; }
   #sparkles i:nth-child(56) {
-    top: calc(20 * 1%);
-    left: calc(37 * 1%);
+    top: calc(50 * 1%);
+    left: calc(2 * 1%);
     animation-delay: 3s; }
   #sparkles i:nth-child(57) {
-    top: calc(33 * 1%);
-    left: calc(72 * 1%);
+    top: calc(7 * 1%);
+    left: calc(61 * 1%);
     animation-delay: 3.5s; }
   #sparkles i:nth-child(58) {
-    top: calc(93 * 1%);
-    left: calc(34 * 1%);
+    top: calc(45 * 1%);
+    left: calc(65 * 1%);
     animation-delay: 4s; }
   #sparkles i:nth-child(59) {
-    top: calc(30 * 1%);
-    left: calc(58 * 1%);
+    top: calc(97 * 1%);
+    left: calc(59 * 1%);
     animation-delay: 4.5s; }
   #sparkles i:nth-child(60) {
-    top: calc(41 * 1%);
-    left: calc(42 * 1%);
+    top: calc(72 * 1%);
+    left: calc(12 * 1%);
     animation-delay: 0s; }
   #sparkles i:nth-child(61) {
-    top: calc(1 * 1%);
-    left: calc(67 * 1%);
+    top: calc(12 * 1%);
+    left: calc(99 * 1%);
     animation-delay: 0.5s; }
   #sparkles i:nth-child(62) {
-    top: calc(49 * 1%);
-    left: calc(30 * 1%);
+    top: calc(75 * 1%);
+    left: calc(20 * 1%);
     animation-delay: 1s; }
   #sparkles i:nth-child(63) {
-    top: calc(71 * 1%);
-    left: calc(87 * 1%);
+    top: calc(59 * 1%);
+    left: calc(38 * 1%);
     animation-delay: 1.5s; }
   #sparkles i:nth-child(64) {
-    top: calc(34 * 1%);
-    left: calc(92 * 1%);
+    top: calc(63 * 1%);
+    left: calc(3 * 1%);
     animation-delay: 2s; }
   #sparkles i:nth-child(65) {
-    top: calc(44 * 1%);
-    left: calc(10 * 1%);
+    top: calc(78 * 1%);
+    left: calc(55 * 1%);
     animation-delay: 2.5s; }
   #sparkles i:nth-child(66) {
-    top: calc(48 * 1%);
-    left: calc(42 * 1%);
+    top: calc(81 * 1%);
+    left: calc(5 * 1%);
     animation-delay: 3s; }
   #sparkles i:nth-child(67) {
-    top: calc(80 * 1%);
-    left: calc(18 * 1%);
+    top: calc(40 * 1%);
+    left: calc(22 * 1%);
     animation-delay: 3.5s; }
   #sparkles i:nth-child(68) {
-    top: calc(55 * 1%);
-    left: calc(72 * 1%);
+    top: calc(43 * 1%);
+    left: calc(71 * 1%);
     animation-delay: 4s; }
   #sparkles i:nth-child(69) {
-    top: calc(38 * 1%);
-    left: calc(1 * 1%);
+    top: calc(84 * 1%);
+    left: calc(96 * 1%);
     animation-delay: 4.5s; }
   #sparkles i:nth-child(70) {
-    top: calc(81 * 1%);
-    left: calc(98 * 1%);
+    top: calc(62 * 1%);
+    left: calc(46 * 1%);
     animation-delay: 0s; }
   #sparkles i:nth-child(71) {
-    top: calc(36 * 1%);
-    left: calc(80 * 1%);
+    top: calc(96 * 1%);
+    left: calc(52 * 1%);
     animation-delay: 0.5s; }
   #sparkles i:nth-child(72) {
-    top: calc(58 * 1%);
+    top: calc(29 * 1%);
     left: calc(79 * 1%);
     animation-delay: 1s; }
   #sparkles i:nth-child(73) {
-    top: calc(45 * 1%);
-    left: calc(97 * 1%);
+    top: calc(16 * 1%);
+    left: calc(67 * 1%);
     animation-delay: 1.5s; }
   #sparkles i:nth-child(74) {
-    top: calc(81 * 1%);
-    left: calc(77 * 1%);
+    top: calc(91 * 1%);
+    left: calc(6 * 1%);
     animation-delay: 2s; }
   #sparkles i:nth-child(75) {
-    top: calc(90 * 1%);
-    left: calc(22 * 1%);
+    top: calc(43 * 1%);
+    left: calc(98 * 1%);
     animation-delay: 2.5s; }
   #sparkles i:nth-child(76) {
-    top: calc(44 * 1%);
-    left: calc(26 * 1%);
+    top: calc(93 * 1%);
+    left: calc(62 * 1%);
     animation-delay: 3s; }
   #sparkles i:nth-child(77) {
-    top: calc(33 * 1%);
-    left: calc(10 * 1%);
+    top: calc(83 * 1%);
+    left: calc(66 * 1%);
     animation-delay: 3.5s; }
   #sparkles i:nth-child(78) {
-    top: calc(79 * 1%);
-    left: calc(92 * 1%);
+    top: calc(100 * 1%);
+    left: calc(17 * 1%);
     animation-delay: 4s; }
   #sparkles i:nth-child(79) {
-    top: calc(24 * 1%);
-    left: calc(5 * 1%);
+    top: calc(2 * 1%);
+    left: calc(24 * 1%);
     animation-delay: 4.5s; }
   #sparkles i:nth-child(80) {
     top: calc(9 * 1%);
-    left: calc(34 * 1%);
+    left: calc(90 * 1%);
     animation-delay: 0s; }
 
 @keyframes sparkling {
@@ -784,6 +784,18 @@
   margin-left: 0.625rem;
   margin-bottom: -1.25rem; }
 
+.snackbar {
+  max-width: 10rem;
+  border: 0.25rem solid #ffffff;
+  padding: 0 1rem;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4), 0 0 20px #b71c1c, 0 0 40px #b71c1c, 0 0 50px #b71c1c, 0 0 100px #b71c1c;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4), inset 2px 2px 1px rgba(0, 0, 0, 0.4), 0 0 20px #b71c1c, inset 0 0 20px #b71c1c; }
+
+.snackbar p {
+  font-size: 1rem; }
+
 /*********************************/
 /************ Global *************/
 /*********************************/
@@ -795,7 +807,7 @@
 * {
   user-select: none !important;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  font-family: 'Carrois Gothic SC', sans-serif;
+  font-family: "Carrois Gothic SC", sans-serif;
   text-transform: uppercase;
   border-color: #ffffff; }
 

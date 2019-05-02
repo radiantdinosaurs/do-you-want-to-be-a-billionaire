@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import 'splash', 'sparkling-background', 'quiz', 'result', 'modal';
+@import "splash", "sparkling-background", "quiz", "result", "modal", "snackbar";
 
 /*********************************/
 /************ Global *************/
@@ -14,7 +14,7 @@
 * {
     user-select: none !important;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    font-family: 'Carrois Gothic SC', sans-serif;
+    font-family: "Carrois Gothic SC", sans-serif;
     text-transform: uppercase;
     border-color: #ffffff;
 }

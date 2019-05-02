@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import CircleType from 'circletype';
-import * as documentManipulation from '../../helpers/documentManipulation';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import CircleType from "circletype";
+import * as documentManipulation from "../../helpers/documentManipulation";
 
 class Splash extends Component {
     state = {
@@ -11,7 +11,7 @@ class Splash extends Component {
     componentDidMount() {
         // Curve the title into a circle
         setTimeout(
-            () => new CircleType(document.getElementById('start-title')),
+            () => new CircleType(document.getElementById("start-title")),
             300
         );
         // After a second of loading, show the start screen
@@ -20,29 +20,28 @@ class Splash extends Component {
 
     // Handle when the user clicks on the start button
     onStartClick = event => {
-        event.preventDefault();
         documentManipulation.animateStartButtonOnClick();
-        this.props.getQuestions();
+        this.props.startGame();
     };
 
     render() {
         const { result } = this.props;
         const { loading } = this.state;
-        let glowingColor = '';
-        let textColor = '';
+        let glowingColor = "";
+        let textColor = "";
 
         // Handle changing the text color if the game has ended
         if (result) {
-            glowingColor = result && result.lost ? 'you-lost' : 'you-won';
-            textColor = result && result.lost ? 'lost' : 'won';
+            glowingColor = result && result.lost ? "you-lost" : "you-won";
+            textColor = result && result.lost ? "lost" : "won";
         }
 
         return (
             <div
                 className="absolute-container"
                 style={{
-                    opacity: loading ? '0' : 1,
-                    transition: 'opacity 2s'
+                    opacity: loading ? "0" : 1,
+                    transition: "opacity 2s"
                 }}
             >
                 <div id="start-container">
