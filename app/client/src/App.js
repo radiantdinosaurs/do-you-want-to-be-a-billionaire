@@ -27,20 +27,14 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            //  State used for start and result screen
-            showSplash: true,
-            result: null,
-            //  State used for questions, levels, etc.
-            counter: 0,
-            questions: [],
-            //  State used for timer
-            seconds: 30,
-            interval: () => {},
-            //  State used for modal
-            modalIsOpen: false,
-            modalMessage: ""
+            showSplash: true, // Controls when to show the start button
+            result: {}, // Holds the result of the game
+            counter: 0, // Used for selecting current question (by index)
+            questions: [], // Trivia questions (an array of objects)
+            seconds: 30, // Used for the 30-second countdown on each question
+            modalIsOpen: false, // Controls when the lifeline modal is shown
+            modalMessage: "" // Holds the message shown in the lifeline modal
         };
-        this.getQuestions = this.getQuestions.bind(this);
     }
 
     componentDidMount() {
@@ -48,7 +42,7 @@ class App extends Component {
         if (!sessionStorage.getItem("token")) request.getSession();
     }
 
-    async getQuestions() {
+    getQuestions = async () => {
         let questions = await request.handleFetchingTrivia();
         if (questions.error && questions.error === "Token is empty.") {
             const token = await request.resetToken();
@@ -57,19 +51,18 @@ class App extends Component {
                 counter: 0,
                 questions: questions,
                 showSplash: false,
-                seconds: 30,
-                interval: setInterval(this.handleCountingDown, 1000)
+                seconds: 30
             });
+            setInterval(this.handleCountingDown, 1000);
         } else {
             this.setState({
                 counter: 0,
                 questions: questions,
                 showSplash: false,
-                seconds: 30,
-                interval: setInterval(this.handleCountingDown, 1000)
+                seconds: 30
             });
         }
-    }
+    };
 
     handleCountingDown = () => {
         const seconds = this.state.seconds - 1;
