@@ -1,6 +1,5 @@
 "use strict";
 
-const axios = require("axios");
 const getError = require("../error/index");
 const logger = require("../logger/index");
 const constants = require("../constants/index");
@@ -30,17 +29,17 @@ function handleGettingTrivia(request, response, next) {
     if (request && request.body) {
         if (request.body.token) {
             const token = request.body.token;
-            axios
+            fetch
                 .get(EASY_QUESTIONS(token))
                 .then(result => {
                     checkResponseCode(result);
                     questions = result.data.results;
-                    return axios.get(MEDIUM_QUESTIONS(token));
+                    return fetch.get(MEDIUM_QUESTIONS(token));
                 })
                 .then(result => {
                     checkResponseCode(result);
                     questions = questions.concat(result.data.results);
-                    return axios.get(HARD_QUESTIONS(token));
+                    return fetch.get(HARD_QUESTIONS(token));
                 })
                 .then(result => {
                     checkResponseCode(result);
