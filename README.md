@@ -3,27 +3,28 @@ A trivia game that you can play over the web. Answer increasingly harder questio
 
 # Scripts
 
-## `heroku-postbuild`
+#### `heroku-postbuild`
 
-Script ran on Heroku instead of the default build script.
+This script runs on Heroku instead of the default build script.
 
-## `start`
+#### `start`
 
 Starts the server locally.
 
-## `client`
+#### `client`
 
 Starts the client locally.
 
-## `test`
+#### `test`
 
 Runs tests. Adding tests for the server and client is still on to-do.
 
-## `dev` 
+#### `dev` 
 
 Runs the server and the client cocurrently locally.
 
 # To-Do
 
-[] Add in unit tests to client and server
-[] Fix bug where when game ends any modal will still be showing if it was open beforehand
+- [ ] Add in unit tests to client and server
+
+- [ ] Fix bug where when game ends any modal will still be showing if it was open beforehand
