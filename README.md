@@ -29,6 +29,10 @@ Runs the server and the client cocurrently locally.
 
 - [ ] Add in unit tests to client and server
 
+#### Features
+
+- [ ] Add in timeout when user selects answer and display green highlight for correct or red highlight for wrong
+
 #### Bugs
 
 - [ ] Fix bug where when game ends any modal will still be showing if it was open beforehand
