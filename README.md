@@ -7,7 +7,7 @@ A trivia game that you can play over the web. Answer increasingly harder questio
 
 Script ran on Heroku instead of the default build script.
 
-## `server`
+## `start`
 
 Starts the server locally.
 

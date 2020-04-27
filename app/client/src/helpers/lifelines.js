@@ -16,8 +16,8 @@ function shuffle(array) {
 export function handlePhoningARobot(answerOptions) {
     const quotes = [
         "Hmmmm...I think the right answer is ",
-        "I know! The answer is ",
-        "You should definitely choose this answer: "
+        "I know! The answer could be ",
+        "You should probably choose "
     ];
     let correctAnswer;
 
@@ -32,17 +32,24 @@ export function handlePhoningARobot(answerOptions) {
 }
 
 export function handleAskingTheAudience(answerOptions) {
+    const correctAnswerPercent = Math.floor(Math.random() * (60 - 50) + 50);
+    let max = 100 - correctAnswerPercent;
     let askTheAudience = [];
+    let percent;
 
-    answerOptions.forEach(answer => {
+    answerOptions.forEach((answer, index) => {
         if (answer.correct) {
-            const percent = Math.floor(Math.random() * (89 - 50) + 50);
             askTheAudience.push({
                 answer: answer.name,
-                audience: percent
+                audience: correctAnswerPercent
             });
         } else {
-            const percent = Math.floor(Math.random() * (45 - 10) + 10);
+            if (index !== answerOptions.length) {
+                percent = Math.floor(Math.random() * (max - 5) + 5);
+                max -= percent;
+            } else {
+                percent = max;
+            }
             askTheAudience.push({
                 answer: answer.name,
                 audience: percent

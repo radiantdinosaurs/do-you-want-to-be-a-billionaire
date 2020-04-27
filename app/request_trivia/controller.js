@@ -1,5 +1,6 @@
 "use strict";
 
+const fetch = require('node-fetch');
 const getError = require("../error/index");
 const logger = require("../logger/index");
 const constants = require("../constants/index");
@@ -12,7 +13,8 @@ const HARD_QUESTIONS = token =>
     `https://opentdb.com/api.php?amount=2&category=9&difficulty=hard&type=multiple&token=${token}`;
 
 function checkResponseCode(response) {
-    const responseCode = response.data.response_code;
+    const responseCode = response.response_code;
+
     if (responseCode === constants.TOKEN_EMPTY) {
         logger.log("info", "Token is empty");
         throw getError.emptyToken();
@@ -23,39 +25,42 @@ function checkResponseCode(response) {
         throw getError.unexpectedResponse();
 }
 
-function handleGettingTrivia(request, response, next) {
+async function handleGettingTrivia(request, response, next) {
     let questions = [];
 
     if (request && request.body) {
         if (request.body.token) {
             const token = request.body.token;
-            fetch
-                .get(EASY_QUESTIONS(token))
-                .then(result => {
-                    checkResponseCode(result);
-                    questions = result.data.results;
-                    return fetch.get(MEDIUM_QUESTIONS(token));
-                })
-                .then(result => {
-                    checkResponseCode(result);
-                    questions = questions.concat(result.data.results);
-                    return fetch.get(HARD_QUESTIONS(token));
-                })
-                .then(result => {
-                    checkResponseCode(result);
-                    questions = questions.concat(result.data.results);
-                    response.questions = questions;
-                    next();
-                })
-                .catch(error => {
-                    logger.log("error", {
-                        message: "Caught an error inside handleTriviaRequest",
-                        error: error
-                    });
-                    next(error);
+
+            try {
+                let easyQuestions = await fetchQuestions(token, EASY_QUESTIONS);
+                let mediumQuestions = await fetchQuestions(token, MEDIUM_QUESTIONS);
+                let hardQuestions = await fetchQuestions(token, HARD_QUESTIONS);
+
+                response.questions = questions.concat(easyQuestions, mediumQuestions, hardQuestions);
+
+                next();
+            } catch (error) {
+                logger.log("error", {
+                    message: "Caught an error inside handleTriviaRequest",
+                    error: error
                 });
+                next(error);
+            }
+
         } else next(getError.badBodyFormat());
     } else next(getError.internalError());
+}
+
+async function fetchQuestions(token, questionType) {
+    let questions = await fetch(questionType(token));
+    let parsedQuestions = await questions.json();
+
+    checkResponseCode(parsedQuestions);
+
+    questions = parsedQuestions.results;
+
+    return questions;
 }
 
 module.exports = {

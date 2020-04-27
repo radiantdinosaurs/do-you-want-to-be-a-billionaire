@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "heroku-postbuild": "cd app/client && npm install --only=dev && npm install && npm run build",
-        "server": "node app/app.js",
+        "start": "node app/app.js",
         "client": "cd app/client && npm start",
-        "dev": "cd app && concurrently \"npm run server\" \"npm run client\"",
+        "dev": "cd app && concurrently \"npm run start\" \"npm run client\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
@@ -15,6 +15,7 @@
     "dependencies": {
         "body-parser": "^1.19.0",
         "express": "^4.17.0",
+        "node-fetch": "^2.6.0",
         "path": "^0.12.7",
         "winston": "^3.1.0"
     },
