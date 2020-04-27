@@ -5,11 +5,10 @@
     "main": "index.js",
     "scripts": {
         "heroku-postbuild": "cd app/client && npm install --only=dev && npm install && npm run build",
-        "start": "node app/app.js",
         "server": "node app/app.js",
         "client": "cd app/client && npm start",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "cd app && concurrently \"npm run server\" \"npm run client\""
+        "dev": "cd app && concurrently \"npm run server\" \"npm run client\"",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
     "license": "ISC",
